@@ -1,0 +1,40 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "CPU system info API",
+    "version": "1.0.1",
+    "description": "This API is used for testing the endpoints for our CPU information"
+  },
+  "paths": {
+    "/cpu": {
+      "get": {
+        "summary":"Get CPU Information",
+        "responses":{
+            "200":{
+                "description":"Success"
+            }
+        }
+      }
+    },
+    "/cpu-threads": {
+      "get": {
+        "summary":"Get CPU Threads Information",
+        "responses":{
+            "200":{
+                "description":"Success"
+            }
+        }
+      }
+    },
+    "/network-interfaces": {
+      "get": {
+        "summary":"Get CPU Network Interfaces Information",
+        "responses":{
+            "200":{
+                "description":"Success"
+            }
+        }
+      }
+    }
+  }
+}
