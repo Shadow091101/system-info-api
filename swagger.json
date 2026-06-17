@@ -3,25 +3,25 @@
   "info": {
     "title": "CPU system info API",
     "version": "1.0.1",
-    "description": "This API is used for testing the endpoints for our CPU information"
+    "description": "# 🚀 System Information API\n\nA lightweight REST API built with Node.js and Express.js that provides detailed information about the host machine using Node.js's built-in OS module.\n\n## Features\n\n- CPU Information\n- CPU Thread Statistics\n- Memory Information\n- Network Interface Information\n- JSON Responses\n- Swagger Documentation\n\n## Getting Started\n\n1. Clone the repository.\n2. Install dependencies using npm install.\n3. Start the server using node index.js.\n4. Open Swagger at http://localhost:9009/api-docs.\n\n## Base URL\n\nhttp://localhost:9009\n\n## Available Endpoints\n\n| Method | Endpoint | Description |\n|---------|----------|-------------|\n| GET | / | Health Check |\n| GET | /cpu | CPU & System Information |\n| GET | /cpu-threads | Logical CPU Thread Information |\n| GET | /network-interfaces | Network Interface Information |\n\n## Response Format\n\nAll successful responses are returned in JSON format.\n\n## Status Codes\n\n- 200 OK\n- 404 Not Found\n- 500 Internal Server Error"
   },
   "paths": {
     "/cpu": {
       "get": {
-        "summary":"Get CPU Information",
+        "summary":"Get CPU and System Information",
         "responses":{
             "200":{
-                "description":"Success"
+                "description":"Returns operating system details, hostname, uptime and memory statistics."
             }
         }
       }
     },
     "/cpu-threads": {
       "get": {
-        "summary":"Get CPU Threads Information",
+        "summary":"Get CPU Thread Information",
         "responses":{
             "200":{
-                "description":"Success"
+                "description":"Returns detailed statistics for every logical CPU thread."
             }
         }
       }
@@ -31,7 +31,7 @@
         "summary":"Get CPU Network Interfaces Information",
         "responses":{
             "200":{
-                "description":"Success"
+                "description":"Returns information about all available network interfaces on the machine."
             }
         }
       }
