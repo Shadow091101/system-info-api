@@ -1,83 +1,239 @@
-# System Information API
+# 🚀 System Information API
 
-## Overview
+A lightweight REST API built with **Node.js** and **Express.js** that provides detailed information about the host machine using Node.js's built-in **OS Module**.
 
-System Information API is a Node.js and Express.js application that exposes system-level information through REST API endpoints. The application uses Node.js's built-in `os` module to retrieve CPU, memory, operating system, and network interface information.
+---
 
-## Features
+# 📖 Table of Contents
+
+* Project Overview
+* Features
+* Technology Stack
+* Project Structure
+* Installation Guide
+* Running the Application
+* Verifying the Application
+* API Endpoints
+* Architecture
+* Future Improvements
+
+---
+
+# 📌 Project Overview
+
+The System Information API exposes system-level information through REST endpoints.
+
+Using Node.js's built-in `os` module, the application retrieves:
 
 * Operating System Information
 * CPU Information
 * CPU Thread Statistics
+* Memory Statistics
 * Network Interface Information
-* Swagger API Documentation
-* CORS Enabled
 
-## Tech Stack
+This project was created to explore backend development concepts, REST APIs, Express.js, and system monitoring using Node.js.
 
-* Node.js
-* Express.js
-* OS Module
-* Swagger UI Express
-* CORS
+---
 
-## Installation
+# ✨ Features
+
+✅ CPU Information
+
+✅ CPU Thread Statistics
+
+✅ Memory Information
+
+✅ Network Interface Information
+
+✅ Swagger Documentation
+
+✅ CORS Support
+
+✅ JSON-Based API Responses
+
+---
+
+# 🛠 Technology Stack
+
+| Technology | Purpose               |
+| ---------- | --------------------- |
+| Node.js    | Runtime Environment   |
+| Express.js | Web Framework         |
+| OS Module  | System Information    |
+| Swagger UI | API Documentation     |
+| CORS       | Cross-Origin Requests |
+
+---
+
+# 📁 Project Structure
+
+```text
+System-Information-API/
+│
+├── index.js
+├── swagger.json
+├── package.json
+├── package-lock.json
+├── README.md
+└── node_modules/
+```
+
+---
+
+# ⚙️ Installation Guide
+
+## Step 1: Clone the Repository
+
+```bash
+git clone <repository-url>
+```
+
+## Step 2: Navigate to the Project Folder
+
+```bash
+cd System-Information-API
+```
+
+## Step 3: Install Dependencies
 
 ```bash
 npm install
 ```
 
-## Running the Application
+At this point all required packages will be downloaded and installed automatically.
+
+---
+
+# ▶️ Running the Application
+
+Start the Express server:
 
 ```bash
 node index.js
 ```
 
-Server runs on:
+If everything starts successfully, you should see in your console: 
 
 ```text
-http://localhost:9009
+Your app is running at http://localhost:9009
 ```
 
-Swagger Documentation:
+---
+
+# ✅ Verifying the Application
+
+## Server Health Check
+
+Open:
+
+```text
+http://localhost:9009/
+```
+
+Expected Output:
+
+```text
+Server is Live
+```
+
+---
+
+## Swagger Documentation
+
+Open:
 
 ```text
 http://localhost:9009/api-docs
 ```
 
-## API Endpoints
+You should see the Swagger UI dashboard where all endpoints can be tested directly.
 
-### GET /
+---
 
-Returns server health status.
+## Test Using Browser
 
-Response:
+### CPU Information
 
-```json
-{
-  "message": "Server is Live"
-}
+```text
+http://localhost:9009/cpu
 ```
 
-### GET /cpu
+### CPU Thread Information
 
-Returns general system information.
+```text
+http://localhost:9009/cpu-threads
+```
 
-Response Fields:
+### Network Interface Information
 
-* Architecture
+```text
+http://localhost:9009/network-interfaces
+```
+
+---
+
+## Test Using Terminal
+
+### CPU Endpoint
+
+```bash
+curl http://localhost:9009/cpu
+```
+
+### CPU Threads Endpoint
+
+```bash
+curl http://localhost:9009/cpu-threads
+```
+
+### Network Interfaces Endpoint
+
+```bash
+curl http://localhost:9009/network-interfaces
+```
+
+---
+
+# 🌐 API Endpoints
+
+| Method | Endpoint            | Description                             |
+| ------ | ------------------- | --------------------------------------- |
+| GET    | /                   | Server Health Check                     |
+| GET    | /cpu                | General CPU & System Information        |
+| GET    | /cpu-threads        | Detailed Logical CPU Thread Information |
+| GET    | /network-interfaces | Network Interface Information           |
+
+---
+
+## GET /
+
+Checks whether the server is running.
+
+### Successful Response
+
+```json
+"Server is Live"
+```
+
+---
+
+## GET /cpu
+
+Returns:
+
+* System Architecture
 * Operating System Type
 * Operating System Version
 * System Uptime
 * Hostname
 * Total Memory
-* Free Memory
+* Available Memory
 
-### GET /cpu-threads
+---
 
-Returns detailed information about all logical CPU threads.
+## GET /cpu-threads
 
-Response Fields:
+Returns:
 
 * Thread Number
 * CPU Model
@@ -88,19 +244,23 @@ Response Fields:
 * Idle Time
 * IRQ Time
 
-### GET /network-interfaces
+for every logical CPU thread detected on the machine.
 
-Returns information about all available network interfaces.
+---
 
-Response Fields:
+## GET /network-interfaces
+
+Returns:
 
 * Interface Name
-* Address
-* Family
+* IP Address
+* Address Family
 * MAC Address
 * Netmask
+* CIDR Information
 * Internal Status
-* CIDR
+
+for every network interface available on the system.
 
 ---
 
@@ -157,3 +317,9 @@ flowchart TD
     System --> CPUThreadsSuccess
     System --> NetworkSuccess
 ```
+---
+
+# 👨‍💻 Author
+
+Developed using **Node.js**, **Express.js**, and the **OS Module** to provide a lightweight and educational system information API.
+
