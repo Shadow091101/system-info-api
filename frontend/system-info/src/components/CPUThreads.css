@@ -1,0 +1,86 @@
+.thread-container{
+    width:95%;
+    margin:auto;
+}
+
+.thread-header{
+    margin-top: 10px;
+    margin-bottom:10px;
+    padding:25px;
+    border-radius:18px;
+    background:linear-gradient(
+        135deg,
+        #2563eb,
+        #1e40af
+    );
+    color:white;
+    box-shadow:0px 10px 30px rgba(37,99,235,0.25);
+}
+
+.thread-heading{
+  
+    font-size:2.2rem;
+    font-weight:700;
+    margin-bottom:8px;
+    letter-spacing:1px;
+}
+
+.thread-subheading{
+    font-size:1rem;
+    opacity:0.9;
+    line-height:1.5;
+}
+.thread-grid{
+    height: 68vh;
+    width:80vw;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+    gap:20px;
+    margin-top: 50px;
+    padding-left: 25px;
+    padding-right:25px;
+    padding-top: 5px;
+}
+
+.thread-card{
+    border: 2px solid black;
+    background:white;
+    border-radius:18px;
+    padding:25px;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.thread-card:hover{
+    transform:translateY(-5px);
+}
+
+.thread-number{
+    font-size:1.2rem;
+    font-weight:bold;
+    color:#2563eb;
+}
+
+.thread-model{
+    margin-top:10px;
+    font-weight:600;
+}
+
+.thread-speed{
+    color:#64748b;
+    margin-bottom:15px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.stat{
+    background:#f8fafc;
+    padding:10px;
+    border-radius:10px;
+}

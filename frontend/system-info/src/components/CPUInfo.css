@@ -1,0 +1,73 @@
+.cpu-container{
+    width: 95%;
+    margin: auto;
+    
+
+}
+
+.cpu-header{
+    margin-top: 10px;
+    margin-bottom:10px;
+    padding:25px;
+    border-radius:18px;
+    background:linear-gradient(
+        135deg,
+        #2563eb,
+        #1e40af
+    );
+    color:white;
+    box-shadow:0px 10px 30px rgba(37,99,235,0.25);
+}
+
+.cpu-heading{
+  
+    font-size:2.2rem;
+    font-weight:700;
+    margin-bottom:8px;
+    letter-spacing:1px;
+}
+
+.cpu-subheading{
+    font-size:1rem;
+    opacity:0.9;
+    line-height:1.5;
+}
+.cpu-grid{
+    width: 80vw;
+    border: 2px solid black;
+    padding: 10px;
+    display: flex;
+    height: 78vh;
+    display:grid;
+    gap:20px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.cpu-card{
+    height: 100px;
+    width: 400px;
+    background:white;
+    border-radius:18px;
+    padding:25px;
+    box-shadow:0px 8px 25px rgba(0,0,0,0.08);
+    transition:all .3s ease;
+    border-left:6px solid #3b82f6;
+}
+
+.cpu-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0px 12px 35px rgba(0,0,0,0.12);
+}
+
+.cpu-title{
+    font-size:0.95rem;
+    color:#64748b;
+    margin-bottom:10px;
+}
+
+.cpu-value{
+    font-size:1.5rem;
+    font-weight:bold;
+    color:#0f172a;
+}

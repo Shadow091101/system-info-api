@@ -264,6 +264,25 @@ for every network interface available on the system.
 
 ---
 
+# Bash Scripts
+
+The project includes helper bash scripts for setup, execution, and testing.
+
+| Script | Purpose |
+|----------|----------|
+| setup.sh | Installs all required dependencies |
+| start.sh | Starts the Express server |
+| test-api.sh | Tests all API endpoints |
+
+## Usage
+
+```bash
+bash setup.sh
+bash start.sh
+bash test-api.sh
+
+---
+
 # Architechture
 
 - Made using Mermaid

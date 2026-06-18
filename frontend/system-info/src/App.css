@@ -1,0 +1,50 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+.app-container{
+    display:flex;
+    height:100vh;
+}
+
+.sidebar{
+    width:250px;
+    background:#1e293b;
+    color:white;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+}
+
+.sidebar h2{
+    margin-bottom:25px;
+}
+
+.sidebar button{
+    padding:12px;
+    margin-bottom:10px;
+    border:none;
+    cursor:pointer;
+    border-radius:8px;
+    text-align:left;
+}
+
+.sidebar button.active{
+    font-weight:bold;
+}
+
+.content-container{
+    flex:1;
+    padding:25px;
+    overflow-y:auto;
+}
+
+.card{
+    background:white;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:15px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
