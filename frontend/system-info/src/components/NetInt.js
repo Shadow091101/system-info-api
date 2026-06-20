@@ -3,26 +3,32 @@ import "./NetInt.css"
 
 function NetInt() {
 
-    const[networks,setNetIntData]=useState([])
-    useEffect(()=>{
-        const getNetIntData=async()=>{
-            const response=await fetch("http://localhost:9009/network-interfaces")
-            const data=await response.json()
+    const [networks, setNetIntData] = useState([])
+    useEffect(() => {
+        const getNetIntData = async () => {
+            const response = await fetch("http://localhost:9009/network-interfaces")
+            const data = await response.json()
 
             setNetIntData(data)
         }
         getNetIntData()
-    },[])
-  return (
-    <div className="network-container">
-
-            <h1 className="network-heading">
-                Network Interfaces
-            </h1>
+    }, [])
+    return (
+        <div className="network-container">
+            <div className="netint-header">
+                <div>
+                    <h1 className="netint-heading">
+                        🌐 Network Interfaces
+                    </h1>
+                    <p className="netint-subheading">
+                        Inspect available network adapters, IP addresses, and connectivity details.
+                    </p>                
+                </div>
+            </div>
 
             <div className="network-grid">
 
-                {networks.map((network,index)=>(
+                {networks.map((network, index) => (
 
                     <div className="network-card" key={index}>
 
@@ -53,7 +59,7 @@ function NetInt() {
             </div>
 
         </div>
-  )
+    )
 }
 
 export default NetInt

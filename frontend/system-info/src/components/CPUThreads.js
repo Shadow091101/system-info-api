@@ -4,6 +4,7 @@ import "./CPUThreads.css"
 function CPUThreads() {
 
     const [threads, setThreads] = useState([])
+    const [selectedThread,setSelectedThread]=useState("")
     useEffect(() => {
 
         const getCPUThreadinfo = async () => {
@@ -16,12 +17,13 @@ function CPUThreads() {
 
     }, [])
 
+    const currentThread=threads.find(
+        (thread)=>thread.thread.toString()===selectedThread);
 
+    
     return (
         <div className="thread-container">
-
             <div className="thread-header">
-
                 <div>
                     <h1 className="thread-heading">
                         🧠 CPU Threads
@@ -32,6 +34,16 @@ function CPUThreads() {
                     </p>
                 </div>
 
+            </div>
+
+            <div className="dropdown">
+                <select value={selectedThread} onChange={(e)=>setSelectedThread(e.target.value)}></select>
+                <option value="">Select Thread</option>
+                {threads.map(thread=>(
+                    <option key={thread.thread} value={thread.thread}>
+                        Thread {thread.thread}
+                    </option>
+                ))}
             </div>
 
             <div className="thread-grid">

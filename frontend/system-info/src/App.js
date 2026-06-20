@@ -13,30 +13,26 @@ import {
 } from 'react-router-dom';
 
 function App() {
-   const [activeTab, setActiveTab]=useState("cpu")
-
-
-   const renderComponent=()=>{
-    switch(activeTab){
+  const [activeTab, setActiveTab] = useState("cpu")
+  const renderComponent = () => {
+    switch (activeTab) {
       case "cpu":
-        return <CPUInfo/>
+        return <CPUInfo />
       case "threads":
-        return <CPUThreads/>
+        return <CPUThreads />
       case "NetInt":
-        return <NetInt/>
+        return <NetInt />
       default:
-        return 
+        return
     }
-   };
+  };
   return (
     <div className="app-container">
-  <Sidebar activeTab={activeTab} setActiveTab={setActiveTab}></Sidebar>
-  <div className="loadcontainer">
-    {renderComponent()}
-  </div>
-
-</div>
-    
+      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab}></Sidebar>
+      <div className="loadcontainer">
+        {renderComponent()}
+      </div>
+    </div>
   );
 }
 
