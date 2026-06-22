@@ -32,16 +32,18 @@
 
 .network-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+    /* grid-template-columns:repeat(auto-fit,minmax(350px,1fr)); */
     gap:20px;
     padding: 10px;
     overflow-y: scroll;
-    height: 75vh;
+    height: auto;
     width: 80vw;
     overflow-x: hidden;
 }
 
 .network-card{
+    width: auto;
+    height: auto;
     background:white;
     border-radius:18px;
     padding:25px;

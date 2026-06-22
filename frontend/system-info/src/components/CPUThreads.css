@@ -31,7 +31,7 @@
     line-height:1.5;
 }
 .thread-grid{
-    height: 68vh;
+    height: auto;
     width:80vw;
     overflow-y: auto;
     overflow-x: hidden;
@@ -50,11 +50,8 @@
     border-radius:18px;
     padding:25px;
     box-shadow:0 8px 25px rgba(0,0,0,.08);
-    transition:.3s;
-}
-
-.thread-card:hover{
-    transform:translateY(-5px);
+    /* transition:all .3s ease; */
+    height: auto;
 }
 
 .thread-number{

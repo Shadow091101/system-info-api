@@ -4,23 +4,27 @@ import "./CPUThreads.css"
 function CPUThreads() {
 
     const [threads, setThreads] = useState([])
-    const [selectedThread,setSelectedThread]=useState("")
-    useEffect(() => {
+    const [selectedThread, setSelectedThread] = useState("")
 
+    useEffect(() => {
         const getCPUThreadinfo = async () => {
             const response = await fetch("http://localhost:9009/cpu-threads")
             const result = await response.json();
 
             setThreads(result);
+            if(result.length>0){
+                setSelectedThread(result[0].thread.toString());
+            }
         }
-        getCPUThreadinfo()
-
+        getCPUThreadinfo();
     }, [])
 
-    const currentThread=threads.find(
-        (thread)=>thread.thread.toString()===selectedThread);
 
-    
+    const currentThread = threads.find(
+        (thread) => thread.thread.toString() === selectedThread
+    );
+
+    // console.log(currentThread)
     return (
         <div className="thread-container">
             <div className="thread-header">
@@ -37,60 +41,53 @@ function CPUThreads() {
             </div>
 
             <div className="dropdown">
-                <select value={selectedThread} onChange={(e)=>setSelectedThread(e.target.value)}></select>
-                <option value="">Select Thread</option>
-                {threads.map(thread=>(
-                    <option key={thread.thread} value={thread.thread}>
-                        Thread {thread.thread}
-                    </option>
-                ))}
+                <select value={selectedThread} onChange={(e) => setSelectedThread(e.target.value)}>
+                    <option value="">Select Thread</option>
+                    {threads.map(thread => (
+                        <option key={thread.thread} value={thread.thread}>
+                            Thread {thread.thread}
+                        </option>
+                    ))}
+                </select>
             </div>
-
             <div className="thread-grid">
-
-                {threads.map(thread => (
-
-                    <div className="thread-card" key={thread.thread}>
+                {/* {threads.map(thread => ( */}
+                {
+                    currentThread && (
+                    <div className="thread-card" key={currentThread.thread}>
 
                         <div className="thread-number">
-                            Thread {thread.thread}
+                            Thread {currentThread.thread}
                         </div>
-
                         <div className="thread-model">
-                            {thread.model}
+                            {currentThread.model}
                         </div>
-
                         <div className="thread-speed">
-                            {thread.speed}
+                            {currentThread.speed}
                         </div>
-
                         <div className="stats">
-
-                            <div className="stat">
+                            <div className="stat" style={{fontWeight:"bold"}}>
                                 User<br />
-                                {thread.time.user}
+                                {currentThread.time.user}
                             </div>
-
-                            <div className="stat">
+                            <div className="stat" style={{fontWeight:"bold"}}>
                                 System<br />
-                                {thread.time.system}
+                                {currentThread.time.system}
                             </div>
-
-                            <div className="stat">
+                            <div className="stat" style={{fontWeight:"bold"}}>
                                 Idle<br />
-                                {thread.time.idle}
+                                {currentThread.time.idle}
                             </div>
 
-                            <div className="stat">
+                            <div className="stat" style={{fontWeight:"bold"}}>
                                 IRQ<br />
-                                {thread.time.irq}
+                                {currentThread.time.irq}
                             </div>
 
                         </div>
 
                     </div>
-
-                ))}
+                    )}
 
             </div>
 
