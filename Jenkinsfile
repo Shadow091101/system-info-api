@@ -35,7 +35,17 @@ pipeline {
 
         stage('Run New Container') {
             steps {
-                sh 'docker run -d -p 9009:9009 --name myapp myapp:latest'
+                sh '''
+
+                echo "Starting a new container..."
+
+                docker run -d -p 9009:9009 --name myapp myapp:latest
+
+                echo "Waiting for container to stabilize"
+                sleep 5
+
+                docker ps | grep myapp
+                '''
             }
         }
 
