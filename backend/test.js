@@ -12,7 +12,7 @@ async function testEndpoint(endpoint) {
             failed = true;
             return;
         }
-        
+
         const result = await response.json();
         if (response.status === 200) {
             console.log(`✅ ${endpoint}`);
@@ -40,8 +40,8 @@ async function runTests() {
 
     await testEndpoint("/");
     await testEndpoint("/cpu");
-    await testEndpoint("/cpu-thread");
-    await testEndpoint("/network-interface");
+    await testEndpoint("/cpu-threads");
+    await testEndpoint("/network-interfaces");
 
     console.log("\n=================================");
     console.log("Testing Complete");
