@@ -39,11 +39,11 @@ pipeline {
                     echo "Container Running Status: $STATUS"
 
 
-                    if["$STATUS" != "true]; then
+                    if["$STATUS" != "true"]; then
                         echo "Container is not running!"
                         exit 1
                     fi
-                    
+
                     echo "Container is running properly."
                     '''
                 }
