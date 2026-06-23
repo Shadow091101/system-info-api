@@ -62,7 +62,10 @@ pipeline {
                     sleep 2
                 done
                 echo "running tests..."
-                bash backend/scripts/test.sh
+                bash backend/scripts/test.sh > test-results.txt 2>&1
+                RESULT=$?
+                cat test-results.txt
+                exit $RESULT
                 '''
                 // -f makes Jenkins fails if API is broken
             }
@@ -76,8 +79,8 @@ pipeline {
         failure {
             echo "❌ Pipeline failed"
         }
-        // always{
-        //     sh 'docker rm -f myapp || true'
-        // }
+        always{
+            archiveArtifacts artifacts: 'test-results.txt', fingerprint:true
+        }
     }
 }
