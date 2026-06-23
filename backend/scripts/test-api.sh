@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ste -e # //This is the key( makes script stop on error)
+set -e # //This is the key( makes script stop on error)
 
 BACKEND_URL="http://host.docker.internal:9009"
 
