@@ -11,7 +11,7 @@ echo -e "\n\nTesting CPU Endpoint..."
 curl -f $BACKEND_URL/cpu || exit 1
 
 echo -e "\n\nTesting CPU Threads Endpoint..."
-curl -f $BACKEND_URL/cpu-threads || exit 1
+curl -f $BACKEND_URL/cpu-thread || exit 1
 
 echo -e "\n\nTesting Network Interfaces Endpoint..."
 curl -f $BACKEND_URL/network-interfaces || exit 1
