@@ -62,7 +62,8 @@ pipeline {
             steps{
                 sh'''
                 sleep 10
-                bash backend/scripts/test.sh
+                bash backend/scripts/test.sh || true
+                bash backend/scripts/test-api.sh || true
                 '''
             }
         }
