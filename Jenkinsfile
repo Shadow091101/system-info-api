@@ -15,9 +15,16 @@ pipeline {
             }
         }
 
-        stage('Stop Old Container') {
+        stage('Stop and Remove Old Container') {
             steps {
-                sh 'docker rm -f myapp || true'
+                sh '''
+                echo="Stopping old container if exists..."
+
+                docker stop myapp || true
+                docker rm -f myapp || true
+
+                echo "Old container cleaned"
+                '''
             }
         }
 
