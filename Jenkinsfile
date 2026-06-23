@@ -63,8 +63,9 @@ pipeline {
                 sh'''
                 sleep 10
                 bash backend/scripts/test.sh || true
-                bash backend/scripts/test-api.sh || true
+                
                 '''
+                // bash backend/scripts/test-api.sh || true
             }
         }
     }

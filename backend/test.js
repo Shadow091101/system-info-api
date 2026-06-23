@@ -9,6 +9,8 @@ async function testEndpoint(endpoint) {
         if (response.status === 200) {
             console.log(`✅ ${endpoint}`);
             console.log(`   Status: ${response.status}`);
+            const result=response.json()
+            console.log(result)
         } else {
             // Server responded, but with an error status (404, 500, etc.)
             console.log(`❌ ${endpoint}`);
