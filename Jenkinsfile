@@ -27,6 +27,29 @@ pipeline {
             }
         }
 
+        // checking if the new container is healthy or not
+        stage('Container Health Check'){
+            steps{
+                script{
+                    sh '''
+                    echo "Checking container status..."
+
+                    
+                    STATUS=$(docker inspect -f '{{.State.Running}}' myapp)
+                    echo "Container Running Status: $STATUS"
+
+
+                    if["$STATUS" != "true]; then
+                        echo "Container is not running!"
+                        exit 1
+                    fi
+                    
+                    echo "Container is running properly."
+                    '''
+                }
+            }
+        }
+
         stage('Test API') {
             steps {
                 //let us create health check loop
