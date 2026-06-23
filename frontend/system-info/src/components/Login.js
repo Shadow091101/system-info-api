@@ -29,10 +29,8 @@ function Login(props) {
 
         if(formData.email==="" || formData.password===""){
             alert("Please enter email or password")
-            return;
-            
+            return;   
         }
-
         const response=await fetch("http://localhost:9009/api/v1/auth/login",{
             method:"POST",
             headers:{
