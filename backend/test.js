@@ -32,8 +32,8 @@ async function runTests() {
 
     await testEndpoint("/");
     await testEndpoint("/cpu");
-    await testEndpoint("/cpu-threads");
-    await testEndpoint("/network-interfaces");
+    await testEndpoint("/cpu-thread");
+    await testEndpoint("/network-interface");
 
     console.log("\n=================================");
     console.log("Testing Complete");
