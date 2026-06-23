@@ -49,7 +49,7 @@ pipeline {
         stage('Test API') {
             steps {
                 sh 'sleep 15'
-                sh 'curl http://localhost:9009/cpu'
+                sh 'curl http://host.docker.internal:9009/cpu'
             }
         }
     }
