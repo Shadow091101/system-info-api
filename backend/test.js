@@ -1,11 +1,19 @@
 const BASE_URL = "http://host.docker.internal:9009";
 
-let failed=false;
+let failed = false;
 
 async function testEndpoint(endpoint) {
     try {
         const response = await fetch(`${BASE_URL}${endpoint}`);
-        const result=await response.json();
+        console.log(`Status: ${response.status}`);
+
+        if (response.status !== 200) {
+            console.log(`❌ ${endpoint}`);
+            failed = true;
+            return;
+        }
+        
+        const result = await response.json();
         if (response.status === 200) {
             console.log(`✅ ${endpoint}`);
             console.log(`   Status: ${response.status}`);
@@ -18,7 +26,7 @@ async function testEndpoint(endpoint) {
         }
     }
     catch (error) {
-           console.log(`❌ ${endpoint}`);
+        console.log(`❌ ${endpoint}`);
         console.log(`   Error: ${error.message}`);
         failed = true;
     }
