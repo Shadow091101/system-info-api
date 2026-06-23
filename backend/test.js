@@ -6,10 +6,10 @@ async function testEndpoint(endpoint) {
     try {
         const response = await fetch(`${BASE_URL}${endpoint}`);
 
+        const result=await response.json()
         if (response.status === 200) {
             console.log(`✅ ${endpoint}`);
             console.log(`   Status: ${response.status}`);
-            const result=response.json()
             console.log(result)
         } else {
             // Server responded, but with an error status (404, 500, etc.)
