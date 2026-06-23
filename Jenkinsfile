@@ -11,25 +11,31 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t myapp:latest .'
+                bat 'docker build -t myapp:latest .'
             }
         }
 
         stage('Stop Old Container') {
             steps {
-                sh 'docker rm -f myapp || true'
+                bat 'docker rm -f myapp || exit 0'
             }
         }
 
         stage('Run New Container') {
             steps {
-                sh 'docker run -d -p 3000:3000 --name myapp myapp:latest'
+                bat 'docker run -d -p 9009:9009 --name myapp myapp:latest'
+            }
+        }
+
+        stage('Wait') {
+            steps {
+                bat 'timeout /t 5'
             }
         }
 
         stage('Test App') {
             steps {
-                sh 'curl http://localhost:3000 || true'
+                bat 'curl http://localhost:9009/'
             }
         }
     }
