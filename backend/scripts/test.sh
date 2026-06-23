@@ -4,7 +4,7 @@ echo "================================="
 echo "Running API Tests"
 echo "================================="
 
-node ../test.js
+node backend/test.js
 
 echo ""
 echo "================================="
