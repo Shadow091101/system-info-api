@@ -47,9 +47,23 @@ pipeline {
         }
 
         stage('Test API') {
-            steps {
-                sh 'sleep 15'
-                sh 'curl http://host.docker.internal:9009/cpu'
+            // steps {
+            //     //let us create health check loop
+            //     sh '''
+            //     for i in {1..10}; do
+            //         curl -f http://host.docker.internal:9009/cpu  && exit 0
+            //         echo "waiting"
+            //         sleep 3
+            //     done
+            //     exit 1
+            //     '''
+            //     // -f makes Jenkins fails if API is broken
+            // }
+            steps{
+                sh'''
+                sleep 10
+                bash backend/test.sh
+                '''
             }
         }
     }
@@ -61,5 +75,8 @@ pipeline {
         failure {
             echo "❌ Pipeline failed"
         }
+        // always{
+        //     sh 'docker rm -f myapp || true'
+        // }
     }
 }
