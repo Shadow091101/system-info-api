@@ -1,22 +1,3 @@
-// pipeline {
-//     agent any
-
-//     stages {
-//         stage('Test Docker') {
-//             steps {
-//                 sh 'docker version'
-//             }
-//         }
-
-//         stage('Test Build') {
-//             steps {
-//                 sh 'echo "Pipeline working"'
-//             }
-//         }
-//     }
-// }
-
-
 pipeline {
     agent any
 
@@ -47,25 +28,20 @@ pipeline {
         }
 
         stage('Test API') {
-            // steps {
-            //     //let us create health check loop
-            //     sh '''
-            //     for i in {1..10}; do
-            //         curl -f http://host.docker.internal:9009/cpu  && exit 0
-            //         echo "waiting"
-            //         sleep 3
-            //     done
-            //     exit 1
-            //     '''
-            //     // -f makes Jenkins fails if API is broken
-            // }
-            steps{
-                sh'''
-                sleep 10
-                bash backend/scripts/test.sh || true
-                
+            steps {
+                //let us create health check loop
+                sh '''
+                echo "Waiting for API to be ready"
+
+                for i in {1..15}; do
+                    curl -f http://host.docker.internal:9009/cpu  && break
+                    echo "waiting ($i)"
+                    sleep 2
+                done
+                echo "running tests..."
+                bash backend/scripts/test.sh
                 '''
-                // bash backend/scripts/test-api.sh || true
+                // -f makes Jenkins fails if API is broken
             }
         }
     }
