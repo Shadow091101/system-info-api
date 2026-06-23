@@ -11,7 +11,12 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t myapp:latest .'
+                sh '''
+                echo "Building Image with versioning..."
+
+                docker build -t myapp:${BUILD_NUMBER} .
+                docker tag myapp:${BUILD_NUMBER} myapp:latest
+                '''
             }
         }
 
