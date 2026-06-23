@@ -5,7 +5,7 @@ const app=express()
 const router=express.Router();
 
 router.get("/", (req, res) => {
-    res.send("Server is Live")
+    res.status(200).json({message:"Server is Live"})
 })
 
 router.get("/cpu", (req, res) => {

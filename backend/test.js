@@ -5,14 +5,7 @@ let failed=false;
 async function testEndpoint(endpoint) {
     try {
         const response = await fetch(`${BASE_URL}${endpoint}`);
-        
-        let result;
-        try{
-                result=await response.json();
-        }catch(e){
-            result=await response.text()
-        }
-
+        const result=await response.json();
         if (response.status === 200) {
             console.log(`✅ ${endpoint}`);
             console.log(`   Status: ${response.status}`);
