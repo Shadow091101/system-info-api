@@ -1,17 +1,19 @@
 #!/bin/bash
 
+ste -e # //This is the key( makes script stop on error)
+
 BACKEND_URL="http://host.docker.internal:9009"
 
 echo "Testing Root Endpoint..."
-curl $BACKEND_URL/
+curl -f $BACKEND_URL/ || exit 1
 
 echo -e "\n\nTesting CPU Endpoint..."
-curl $BACKEND_URL/cpu
+curl -f $BACKEND_URL/cpu || exit 1
 
 echo -e "\n\nTesting CPU Threads Endpoint..."
-curl $BACKEND_URL/cpu-threads
+curl -f $BACKEND_URL/cpu-threads || exit 1
 
 echo -e "\n\nTesting Network Interfaces Endpoint..."
-curl $BACKEND_URL/network-interfaces
+curl -f $BACKEND_URL/network-interfaces || exit 1
 
 echo -e "\n\nAll tests completed."
