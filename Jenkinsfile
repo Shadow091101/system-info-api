@@ -107,9 +107,16 @@ pipeline {
                 --summary-export=backend/k6-summary.json \
                 >> test-results.txt 2>&1
 
-                RESULT=$?
-                cat test-results.txt
-                exit $RESULT
+                EXIT_CODE=$?
+
+                echo "k6 exit code: $EXIT_CODE" | tee -a test-results.txt
+
+                if [$EXIT_CODE -ne 0]; then
+                    echo "k6 load test failed" | tee -a test-results.txt
+                    exit $EXIT_CODE
+                fi
+
+                echo "k6 load test passed" | tee -a test-results.txt
                 '''
             }
         }
