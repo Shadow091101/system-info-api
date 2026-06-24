@@ -1,6 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Sidebar = ({ activeTab, setActiveTab }) => {
+    const navigate=useNavigate();
+    const handleLogout=()=>{
+            localStorage.removeItem('token')
+            navigate('/login')
+    }
     return (
         <div className="sidebar">
             <h2>System Info</h2>
@@ -11,6 +17,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
                 CPU Threads
             </button>
             <button className={activeTab === "NetInt" ? "active" : ""} onClick={() => setActiveTab("NetInt")}>Network Interfaces</button>
+            <button onClick={()=>handleLogout()}>Logout</button>
         </div>
     )
 }

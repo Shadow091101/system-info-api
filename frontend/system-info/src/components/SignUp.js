@@ -57,12 +57,13 @@ function SignUp() {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ email: formData.email, password: formData.password, name: formData.name })
+                body: JSON.stringify({ email: formData.email, password: formData.password, username: formData.name })
             })
-            handleClear();
-            const json = await response.json()
-            alert(json)
-            if (json.success) {
+            // handleClear();
+            const result = await response.json()
+            console.log("Backend Response on frontend : ",result);
+            alert(JSON.stringify(result))
+            if (result.success) {
                 alert("User Added")
                 navigate("/login")
             } else {
@@ -82,7 +83,7 @@ function SignUp() {
                     <div className="name" style={{ margin: "10px" }}>
 
                         <label htmlFor="name">Username : </label>
-                        <input type="text" name="name" id="name" value={formData.username} onChange={handleChange} />
+                        <input type="text" name="name" id="name" value={formData.name} onChange={handleChange} />
 
                     </div>
                     <div className="email" style={{ margin: "10px" }}>
@@ -108,9 +109,8 @@ function SignUp() {
                     </div>
                     <br />
                     <div className="gotoSignup">
-                        Have any account? <a href="" style={{ textDecoration: "none" }}>Login</a>
+                        Have any account? <a  style={{ textDecoration: "none",cursor:"pointer" }} onClick={()=>navigate("/login")}>Login</a>
                     </div>
-
                 </form>
             </div>
         </div>

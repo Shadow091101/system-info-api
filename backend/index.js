@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 
 app.use(cors())
 app.use(express.json());
-app.use(bodyParser.json())
+// app.use(bodyParser.json())
 
 app.use("/api-docs",
         swaggerUi.serve,
@@ -19,7 +19,7 @@ app.use("/api-docs",
 
 app.use("/",infoRouter)
 
-// app.use('/api/v1/auth', require('./routes/auth'));
+app.use('/api/v1/auth', require('./routes/auth'));
 
 const port = 9009
 app.listen(port, "0.0.0.0", () => {

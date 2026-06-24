@@ -92,6 +92,17 @@ pipeline {
                 // -f makes Jenkins fails if API is broken
             }
         }
+        stage('Load Test(k6)'){
+            steps{
+                sh '''
+
+                echo "Running Load Test..."
+
+                k6 run backend/load-test.js \
+                --summary-export=backend/k6-summary.json
+                '''
+            }
+        }
     }
 
     post {

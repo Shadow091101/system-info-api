@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-function Login(props) {
+function Login() {
     let navigate=useNavigate();
 
     const [formData,setFormData]=useState({
@@ -44,7 +44,7 @@ function Login(props) {
         if(json.success){
             localStorage.setItem('token',json.authtoken)
             alert("Logged in Successfully")
-            props.setIsLoggedIn(true)
+            // props.setIsLoggedIn(true)
             navigate("/")
         }else{
             alert("Logged in unSuccessful")   
