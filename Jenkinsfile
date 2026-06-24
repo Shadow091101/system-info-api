@@ -103,6 +103,7 @@ pipeline {
                 echo "Running" 
 
                 k6 run backend/load-test.js \
+                --env BASE_URL=http://host.docker.internal:9009 \
                 --summary-export=backend/k6-summary.json
                 '''
             }

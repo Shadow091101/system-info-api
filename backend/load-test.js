@@ -14,8 +14,9 @@ export const options={
 //vus:10 , virtual users, like user1,user2 and so on, all these virtual users are hitting the API simulatneously
 //duration :'10s', means keep those no. of users running for 10 seconds.
 
+const BASE_URL=__ENV.BASE_URL;
 export default function(){
-    const res=http.get('http://myapp:9009/cpu')//every virtual users would hit this , response stored in res
+    const res=http.get(`${BASE_URL}/cpu`)//every virtual users would hit this , response stored in res
 
     check(res,{
         'status is 200':(r)=>r.status===200,
