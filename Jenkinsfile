@@ -23,11 +23,9 @@ pipeline {
         stage('Stop and Remove Old Container') {
             steps {
                 sh '''
-                echo "Stopping any container using port 9009..."
+                echo "Stopping old container if exists..."
 
-                docker ps -q --filter "publish=9009" | xargs -r docker stop
-
-                docker ps -aq --filter "publish=9009" | xargs -r docker rm -f
+                docker rm -f myapp || true
 
                 echo "Cleanup done"
                 '''
