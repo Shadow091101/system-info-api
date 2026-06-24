@@ -104,7 +104,12 @@ pipeline {
 
                 k6 run backend/load-test.js \
                 --env BASE_URL=http://host.docker.internal:9009 \
-                --summary-export=backend/k6-summary.json
+                --summary-export=backend/k6-summary.json \
+                >> test-results.txt 2>&1
+
+                RESULT=$?
+                cat test-results.txt
+                exit $RESULT
                 '''
             }
         }
@@ -118,7 +123,7 @@ pipeline {
             echo "❌ Pipeline failed"
         }
         always{
-            archiveArtifacts artifacts: 'test-results.txt', fingerprint:true
+            archiveArtifacts artifacts: 'test-results.txt, backend/k6-summary.json', fingerprint:true
         }
     }
 }
