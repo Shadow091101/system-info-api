@@ -97,6 +97,7 @@ pipeline {
                 sh '''
 
                 echo "Running Load Test..."
+                echo "Running" 
 
                 k6 run backend/load-test.js \
                 --summary-export=backend/k6-summary.json
