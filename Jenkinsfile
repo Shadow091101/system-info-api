@@ -117,6 +117,11 @@ pipeline {
                 fi
 
                 echo "k6 load test passed" | tee -a test-results.txt
+
+                echo "Generating HTML Report"
+
+                k6-to-html backend/k6-summary.json -o backend/k6-report.html
+                echo "Report Generated"
                 '''
             }
         }
@@ -130,7 +135,7 @@ pipeline {
             echo "❌ Pipeline failed"
         }
         always{
-            archiveArtifacts artifacts: 'test-results.txt, backend/k6-summary.json', fingerprint:true
+            archiveArtifacts artifacts: 'test-results.txt, backend/k6-summary.json, backend/k6-report.html', fingerprint:true
         }
     }
 }
