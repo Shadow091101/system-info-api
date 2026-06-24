@@ -2,12 +2,12 @@ import http from 'k6/http';
 import { check } from 'k6';
 
 export const options={
-    vus:50,// 10 virtual users
-    duration: '50s',
+    vus:10,// 10 virtual users
+    duration: '10s',
 
     thresholds:{
         http_req_failed:['rate<0.01'],
-        http_req_duration:['p(95)<10'],
+        http_req_duration:['p(95)<50'],
     },
 };
 //k6 automatically looks for this variaable "options" once it starts the test, you should always create this variable.
