@@ -15,7 +15,7 @@ export const options={
 //duration :'10s', means keep those no. of users running for 10 seconds.
 
 export default function(){
-    const res=http.get('http://localhost:9009/cpu')//every virtual users would hit this , response stored in res
+    const res=http.get('http://myapp:9009/cpu')//every virtual users would hit this , response stored in res
 
     check(res,{
         'status is 200':(r)=>r.status===200,

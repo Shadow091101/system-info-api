@@ -38,7 +38,11 @@ pipeline {
 
                 echo "Starting a new container..."
 
-                docker run -d -p 9009:9009 --name myapp myapp:latest
+                docker run -d \
+                --name myapp \
+                --network cicd-net \
+                -p 9009:9009 \
+                myapp:latest
 
                 echo "Waiting for container to stabilize"
                 sleep 5
