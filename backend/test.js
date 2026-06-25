@@ -1,4 +1,4 @@
-const BASE_URL = "http://host.docker.internal:9009";
+const BASE_URL = "http://host.docker.internal:80";
 
 let failed = false;
 
