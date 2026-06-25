@@ -57,16 +57,25 @@ pipeline {
         stage('Health Check') {
             steps {
                 sh '''
-                echo "Checking app health..."
+                echo "Waiting for API to be ready..."
 
-                for i in {1..15}; do
-                    curl -f http://host.docker.internal:80/cpu && break
-                    echo "waiting... attempt $i"
+                for i in {1..30}; do
+                    STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://host.docker.internal:80/cpu)
+
+                    if [ "$STATUS" = "200" ]; then
+                        echo "API is READY"
+                        exit 0
+                    fi
+
+                    echo "Not ready yet... attempt $i"
                     sleep 2
                 done
+
+                echo "API failed to start"
+                exit 1
                 '''
-            }
-        }
+    }
+}
 
         stage('Run Unit Tests') {
             steps {
