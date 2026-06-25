@@ -111,6 +111,7 @@ pipeline {
 
         failure {
             echo "❌ Pipeline FAILED"
+            echo "PIPELINE FAILED"
         }
 
         always {
