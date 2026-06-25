@@ -16,7 +16,9 @@ router.get("/cpu", (req, res) => {
         Total_Uptime: (os.uptime() / 60).toFixed(2) + " mins",
         hostname: os.hostname(),
         total_memory: (os.totalmem() / (1024 * 1024 * 1024)).toFixed(2) + " GB",
-        free_memory: (os.freemem() / (1024 * 1024 * 1024)).toFixed(2) + " GB"
+        free_memory: (os.freemem() / (1024 * 1024 * 1024)).toFixed(2) + " GB",
+        hello:"hello",
+        instance: process.env.INSTANCE_NAME || require("os").hostname()
     });
 })
 

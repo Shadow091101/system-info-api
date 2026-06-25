@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        IMAGE_NAME = "myapp"
+        NETWORK = "cicd-net"
+    }
+
     stages {
 
         stage('Checkout') {
@@ -12,116 +17,88 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 sh '''
-                echo "Building Image with versioning..."
+                echo "Building Docker image..."
 
-                docker build -t myapp:${BUILD_NUMBER} .
-                docker tag myapp:${BUILD_NUMBER} myapp:latest
+                docker build -t $IMAGE_NAME:${BUILD_NUMBER} .
+                docker tag $IMAGE_NAME:${BUILD_NUMBER} $IMAGE_NAME:latest
+
+                echo "Build completed"
                 '''
             }
         }
 
-        stage('Stop and Remove Old Container') {
+        stage('Cleanup Old Containers') {
             steps {
                 sh '''
-                echo "Stopping old container if exists..."
+                echo "Removing old containers..."
 
-                docker rm -f myapp || true
+                docker rm -f app1 app2 app3 || true
 
                 echo "Cleanup done"
                 '''
             }
         }
 
-        stage('Run New Container') {
+        stage('Deploy 3 Replicas') {
             steps {
                 sh '''
+                echo "Starting 3 backend instances..."
 
-                echo "Starting a new container..."
+                docker run -d --name app1 --network $NETWORK -p 9001:9009 $IMAGE_NAME:latest
+                docker run -d --name app2 --network $NETWORK -p 9002:9009 $IMAGE_NAME:latest
+                docker run -d --name app3 --network $NETWORK -p 9003:9009 $IMAGE_NAME:latest
 
-                docker run -d \
-                --name myapp \
-                --network cicd-net \
-                -p 9009:9009 \
-                myapp:latest
-
-                echo "Waiting for container to stabilize"
-                sleep 5
-
-                docker ps | grep myapp
+                echo "Containers started:"
+                docker ps
                 '''
             }
         }
 
-        // checking if the new container is healthy or not
-        stage('Container Health Check'){
-            steps{
-                script{
-                    sh '''
-                    echo "Checking container status..."
-
-                    
-                    STATUS=$(docker inspect -f '{{.State.Running}}' myapp)
-                    echo "Container Running Status: $STATUS"
-
-
-                    if [ "$STATUS" != "true" ]; then
-                        echo "Container is not running!"
-                        exit 1
-                    fi
-
-                    echo "Container is running properly."
-                    '''
-                }
-            }
-        }
-
-        stage('Test API') {
+        stage('Health Check') {
             steps {
-                //let us create health check loop
                 sh '''
-                echo "Waiting for API to be ready"
+                echo "Checking app health..."
 
                 for i in {1..15}; do
-                    curl -f http://host.docker.internal:9009/cpu  && break
-                    echo "waiting ($i)"
+                    curl -f http://host.docker.internal:80/cpu && break
+                    echo "waiting... attempt $i"
                     sleep 2
                 done
-                echo "running tests..."
-                bash backend/scripts/test.sh > test-results.txt 2>&1
-                RESULT=$?
-                cat test-results.txt
-                exit $RESULT
                 '''
-                // -f makes Jenkins fails if API is broken
             }
         }
-        stage('Load Test(k6)'){
-            steps{
-                sh '''
 
-                echo "Running Load Test..."
-                echo "Running" 
+        stage('Run Unit Tests') {
+            steps {
+                sh '''
+                echo "Running backend tests..."
+
+                bash backend/scripts/test.sh > test-results.txt 2>&1
+                cat test-results.txt
+                '''
+            }
+        }
+
+        stage('Load Test (k6)') {
+            steps {
+                sh '''
+                echo "Starting k6 load test..."
 
                 k6 run backend/load-test.js \
-                --env BASE_URL=http://host.docker.internal:9009 \
+                --env BASE_URL=http://host.docker.internal:80 \
                 --summary-export=backend/k6-summary.json \
-                >> test-results.txt 2>&1
+                | tee test-results.txt
 
                 EXIT_CODE=$?
 
-                echo "k6 exit code: $EXIT_CODE" | tee -a test-results.txt
+                echo "k6 exit code: $EXIT_CODE"
 
-                if [$EXIT_CODE -ne 0]; then
-                    echo "k6 load test failed" | tee -a test-results.txt
+                if [ $EXIT_CODE -ne 0 ]; then
+                    echo "k6 load test FAILED"
                     exit $EXIT_CODE
                 fi
 
-                echo "k6 load test passed" | tee -a test-results.txt
-
-                echo "Generating HTML Report"
-
-                k6-to-html backend/k6-summary.json -o backend/k6-report.html
-                echo "Report Generated"
+                echo "k6 load test PASSED"
                 '''
             }
         }
@@ -129,13 +106,15 @@ pipeline {
 
     post {
         success {
-            echo "✅ CI/CD pipeline successful"
+            echo "✅ Pipeline SUCCESS"
         }
+
         failure {
-            echo "❌ Pipeline failed"
+            echo "❌ Pipeline FAILED"
         }
-        always{
-            archiveArtifacts artifacts: 'test-results.txt, backend/k6-summary.json, backend/k6-report.html', fingerprint:true
+
+        always {
+            archiveArtifacts artifacts: 'test-results.txt, backend/k6-summary.json', fingerprint: true
         }
     }
 }
