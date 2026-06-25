@@ -36,7 +36,8 @@ router.get("/cpu-threads", async (req, res) => {
                 "system": (os.cpus()[i].times.sys / (1000 * 60)).toFixed(2) + " mins",
                 "idle": (os.cpus()[i].times.idle / (1000 * 60)).toFixed(2) + " mins",
                 "irq": (os.cpus()[i].times.irq / (1000 * 60)).toFixed(2) + " mins",
-            }
+            },
+            instance: process.env.INSTANCE_NAME || require("os").hostname()
         })
     }
     // console.log(cpuData);
@@ -59,7 +60,8 @@ router.get("/network-interfaces", (req, res) => {
                 mac: info.mac,
                 netmask: info.netmask,
                 internal: info.internal,
-                cidr: info.cidr
+                cidr: info.cidr,
+                instance: process.env.INSTANCE_NAME || require("os").hostname()
             });
 
         }
