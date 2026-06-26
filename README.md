@@ -341,49 +341,42 @@ flowchart TD
 
 - Made using Mermaid
 
+```mermaid
 flowchart TD
 
-```mermaid
-    A[Developer Pushes Code to GitHub] --> B[GitHub Webhook]
-    B --> C[Jenkins Pipeline Triggered]
+    A["Developer Pushes Code"] --> B["GitHub"]
+    B --> C["GitHub Webhook"]
+    C --> D["Jenkins Pipeline"]
 
-    C --> D[Checkout Source Code]
+    D --> E["Checkout Source Code"]
+    E --> F["Build Docker Image"]
+    F --> G["Tag Image as latest"]
 
-    D --> E[Build Docker Image]
-    E --> F[Tag Image as latest]
+    G --> H["Remove Old Containers"]
 
-    F --> G[Remove Old Containers]
-    G --> H[Remove app1]
-    G --> I[Remove app2]
-    G --> J[Remove app3]
+    H --> I["Start app1"]
+    H --> J["Start app2"]
+    H --> K["Start app3"]
 
-    H --> K[Deploy New Containers]
-    I --> K
-    J --> K
+    I --> L["NGINX Load Balancer"]
+    J --> L
+    K --> L
 
-    K --> L[Start app1 :9001]
-    K --> M[Start app2 :9002]
-    K --> N[Start app3 :9003]
+    L --> M["Health Check"]
 
-    L --> O[NGINX Load Balancer]
-    M --> O
-    N --> O
+    M -->|Success| N["Run API Tests"]
+    M -->|Failure| X["Pipeline Failed"]
 
-    O --> P[Health Check via /cpu]
+    N -->|Success| O["Run k6 Load Test"]
+    N -->|Failure| X
 
-    P -->|Healthy| Q[Run API Tests]
-    P -->|Failed| X[Pipeline Failed]
+    O -->|Success| P["Archive Reports"]
+    O -->|Failure| X
 
-    Q -->|Passed| R[Run k6 Load Test]
-    Q -->|Failed| X
+    P --> Q["Pipeline Success"]
 
-    R -->|Passed| S[Archive Test Reports]
-    R -->|Failed| X
-
-    S --> T[Pipeline Success]
-
-    X --> U[Archive Logs & Reports]
-    U --> V[Pipeline Failed]
+    X --> R["Archive Logs"]
+    R --> S["Pipeline Failed"]
 ```
 ---
 
