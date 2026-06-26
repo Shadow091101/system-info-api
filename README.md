@@ -341,7 +341,7 @@ flowchart TD
 
 - Made using Mermaid
 
-```mermaid
+flowchart TD
 
     A[Developer Pushes Code to GitHub] --> B[GitHub Webhook]
     B --> C[Jenkins Pipeline Triggered]
@@ -383,7 +383,6 @@ flowchart TD
 
     X --> U[Archive Logs & Reports]
     U --> V[Pipeline Failed]
-```
 ---
 
 # 👨‍💻 Author
