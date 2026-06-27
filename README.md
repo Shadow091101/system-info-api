@@ -280,10 +280,11 @@ The project includes helper bash scripts for setup, execution, and testing.
 bash setup.sh
 bash start.sh
 bash test-api.sh
-
+```
 ---
 
-# Architechture
+
+# Main Architechture
 
 - Made using Mermaid
 
@@ -335,6 +336,47 @@ flowchart TD
     System --> CPUSuccess
     System --> CPUThreadsSuccess
     System --> NetworkSuccess
+```
+# Jenkins Architechure
+
+- Made using Mermaid
+
+```mermaid
+flowchart TD
+
+    A["Developer Pushes Code"] --> B["GitHub"]
+    B --> C["GitHub Webhook"]
+    C --> D["Jenkins Pipeline"]
+
+    D --> E["Checkout Source Code"]
+    E --> F["Build Docker Image"]
+    F --> G["Tag Image as latest"]
+
+    G --> H["Remove Old Containers"]
+
+    H --> I["Start app1"]
+    H --> J["Start app2"]
+    H --> K["Start app3"]
+
+    I --> L["NGINX Load Balancer"]
+    J --> L
+    K --> L
+
+    L --> M["Health Check"]
+
+    M -->|Success| N["Run API Tests"]
+    M -->|Failure| X["Pipeline Failed"]
+
+    N -->|Success| O["Run k6 Load Test"]
+    N -->|Failure| X
+
+    O -->|Success| P["Archive Reports"]
+    O -->|Failure| X
+
+    P --> Q["Pipeline Success"]
+
+    X --> R["Archive Logs"]
+    R --> S["Pipeline Failed"]
 ```
 ---
 
