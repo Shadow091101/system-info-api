@@ -6,7 +6,7 @@ const { Schema } = mongoose;
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = 'betterplaybloodbourne345'
+const JWT_SECRET = process.env.JWT_SECRET;
 // const fetchUser = require('../middleware/fetchuser');
 
 router.post('/signup', [
